@@ -38,6 +38,6 @@ scanf("%s", choice1);
 ```
 the size of choice1 is defined but the size of how much scanf reads into choice1 is not, hence a larger than 32 bytes would cause segmentation fault and hence throw the flag out. 
 
-###also 
+### also 
 went through the ctfguide link given in the doc for binary exploitation, learned a little about heap and stack and how the architecture works. It was the best part of this challenge actually. definitely gonna look more into it. 
 ``'
