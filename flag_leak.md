@@ -16,7 +16,8 @@ printf("\n");
 no format specifier used in `printf(story)` 
 using this exploit it is possible to dump the contents of the stack and ultimately the memory address of our flag on the heap stored as a local variable after the readflag(flag, FLAGSIZE) function is called
 
-a brute force method was to view the contents of every index at stack, i tried doing it manually, was too much so asked chatGPT to write a script 
+a brute force method was to view the contents of every index at stack, i tried doing it manually, was too much so I asked chatGPT to write a script 
+created a flag.txt file and ran the script locally. It worked because `checksec vuln` mentioned PIE is disabled, so addresses for this program do not change. 
 
 ```
 import subprocess
@@ -51,4 +52,4 @@ program_path = "./vuln"  # Replace with the actual program path
 find_flag(program_path)
 ```
 
-and found it at index 24! 
+and found it at index 24! ran it in the webshell and got the flag. 
