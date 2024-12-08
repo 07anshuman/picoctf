@@ -1,0 +1,4 @@
+Format-String-0 Challenge
+
+flag:picoCTF{7h3_cu570m3r_15_n3v3r_SEGFAULT_74f6c0e7}
+
