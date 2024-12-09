@@ -22,6 +22,9 @@ I asked chatGPT what `.align 2` meant and it was to set a 4 byte boundary for AR
 
 Using this I drew out the `func` function and what it meant as follows:
 
+![FUNC 1](ARMassembly1_0.jpeg)
+![FUNC 2](ARMassembly1_1.jpeg)
+![FUNC 3](ARMassembly1_2.jpeg)
 
 Now onto `main` function:
 
