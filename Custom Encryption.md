@@ -2,7 +2,7 @@
 
 ## **Flag**: picoCTF{custom_d2cr0pt6d_dc499538}
 
-The first step was to understand the decryption logic. I understood some parts of it, used chatgpt to break down the generator functions and got the word Diffie Hellman Key Exchange. Computerfile ![https://youtu.be/Yjrfm_oRO0w?si=jgIkALq7ho5VaMYK] to the rescue. Understood how this algorithm worked and figured how the shared keys were being generated in the given code. The `a` and `b` values were given in the encrypted file. 
+The first step was to understand the decryption logic. I understood some parts of it, used chatgpt to break down the generator functions and got the word Diffie Hellman Key Exchange. [Computerfile](https://youtu.be/Yjrfm_oRO0w?si=jgIkALq7ho5VaMYK) to the rescue. Understood how this algorithm worked and figured how the shared keys were being generated in the given code. The `a` and `b` values were given in the encrypted file. 
 
 The process to generate these keys is as follows:
 
