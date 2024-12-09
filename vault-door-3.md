@@ -1,6 +1,6 @@
 # vault-door-3 Challenge
 
-## **Flag** picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}
+## **Flag**: picoCTF{jU5t_a_s1mpl3_an4gr4m_4_u_c79a21}
 
 A fairly straightforward challenge, the program needed an input such that when performed the following series of operations it matches the given string.
 
