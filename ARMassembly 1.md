@@ -1,6 +1,6 @@
-ARMassembly 1 Challenge
+# ARMassembly 1 Challenge
 
-Flag: picoCTF{0000001b}
+## **FLAG**: picoCTF{0000001b}
 
 This was a really informative and fun challenge. At first I thought these instructions need to be compiled by GCC or something, I tried doing it but too many errors. I realised maybe I had to compile it myself i.e. understand the logic here cause ultimately all I needed was a value to pass to print "win". 
 
