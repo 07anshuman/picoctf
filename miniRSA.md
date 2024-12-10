@@ -1,6 +1,22 @@
 # miniRSA Challenge
 ## **Flag**: picoCTF{n33d_a_lArg3r_e_606ce004}
 
+First Step: Back to Computerfile! [https://youtu.be/-ShwJqAalOk?si=-KjbLGP673jRJstK] [https://youtu.be/-ShwJqAalOk?si=-KjbLGP673jRJstK] These videos explained RSA so so well. Also the wikipedia page was really helpful too. 
+
+So to break it down, N is a really large number, product of two primes, both very large and with a large difference between them, otherwise it kinda gets easy to guess them. 
+e is typically 65535, but in our case it is a small value of 3.
+
+encryption looks like this: `C = M^e mod N`
+decryption looks like this: `M = C^d mod N`
+where `d.e is congruent modulo 1 mod the totient function of N` where the totient function is `(p-1)(q-1)`
+so `d is the modular inverse of e modulo totient function of N`
+
+since e=3 here, the cipher C is the cube of the message M modulo N. 
+since the problem states that M^e is just barely larger than N, `M^e = kN + C`
+so all we have to do is find which values of k satisfy `M^3 = kN + C` 
+whichever `cube root` of `kn + C` is perfect is the answer for M
+
+I used Sage Math for this since Computerfile used Sage Math and I really wanted to unlock a math tool for myself. 
 
 Sage Code:
 ```
@@ -15,10 +31,11 @@ for k in range(10): #since they mentioned we shouldn't have to make too many gue
         print(f"Found k = {k}, M = {M}")
         break
 
-hex_code = hex(M)[2:]  # Remove "0x" prefix
+hex_code = hex(M)[2:] 
 plaintext = bytes.fromhex(hex_code).decode()
 print(plaintext)
 ```
+
 Output:
 ```
 Found k = 0, M = 13016382529449106065894479374027604750406953699090365388202874238148389207291005
