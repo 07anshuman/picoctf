@@ -26,6 +26,11 @@ mbytes = long_to_bytes(442924545586929381507997208008341582640726314548626864058
 message = mbytes.decode()
 print(message)
 ```
-Luckily the flag was the second ciphertext in the file itself. 
+```
+I hope we win that big rowing match next week!
+```
+that was the decoded message for the first ciphertext, meaning the idea worked. 
+
+Luckily the flag was the second ciphertext in the file itself! 
 
 This challenge also introduced me to the `pycryptodome` library which seems so useful, padding modules, hashing modules and so much more. 
