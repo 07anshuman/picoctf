@@ -34,3 +34,23 @@ that was the decoded message for the first ciphertext, meaning the idea worked.
 Luckily the flag was the second ciphertext in the file itself! 
 
 This challenge also introduced me to the `pycryptodome` library which seems so useful, padding modules, hashing modules and so much more. 
+
+
+# Sum-O-Primes
+## picoCTF{pl33z_n0_g1v3_c0ngru3nc3_0f_5qu4r35_24929c45}
+
+RSA RSA 
+this time they gave the sum of primes along with n,e,c as well. `e=65537`, however they gave the values in base-16 hex 
+```
+print(f'x = {x:x}')
+print(f'n = {n:x}')
+print(f'c = {c:x}')
+```
+so first things first, converting the values back to decimal: `x=int("(hex of x)", 16)`
+now this wouldn't be a simple 1/65537 root of c like previously, I tried but no output.
+so to break it I had to find the private key `d` which is the modular inverse of e mod totient function of n : `d = e^-1 mod phi(n)` where `phi(n) = (p-1)*(q-1)`
+`m = c^d mod n`
+
+now we need to find p,q given n and x 
+after some research and logic I realised `(p+q)^2 = p^2 + q^2 + 2pq` so `p^2 + q^2 = (p+q)^2 - 2pq` we have p + q, if we get `p - q` then we can get p and q. `(p+q)^2 - (p-q)^2 = 4pq` old algebraic identity. now ` (p+q)^2 - 4pq = (p-q)^2` = `x^2 - 4n` and the underroot of this is equal to `p-q`. but ofc this value would have to be a perfect square else it fails. but the hint suggests `I love squares :)` so it most likely is referring to this. calculating this in sage math console gave a perfect value. so it works! now, to find p and q we have to add and subtract, which again gives the P and Q values!
+now computing the d and then the m and then decoding it gives the flag! 
