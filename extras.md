@@ -82,3 +82,10 @@ Our right-to-left convention in the representation of memory is useful when disp
 `it will abort the process if a format string with random access arguments does not use all the arguments (see Section 7.2.2);
 it will abort the process if a format string containing a “%n” operator is read from writable memory`
 `The checksec utility from the pwntools library detects FORTIFY_SOURCE by looking for any imported function whose name ends in _chk`
+
+# format-string-2
+## Flag: picoCTF{f0rm47_57r?_f0rm47_m3m_741fa290}
+
+Looking at the code again told that we need to change the values of sus int from `0x21737573` to `0x67616c66` i.e. from `!sus` to `flag` 
+Now for that we need to know the address of sus for one, so found that using objdump. now what's important is finding how far on stack runtime is the address for this. I tried doing it manually one skip at a time and printing arbitrary values off the stack passing flag as string. Oh and also it is 64 bit system, based on the addresses in objdump. I then asked chatgpt to automate the script but it got confusing to find it. After more trys and fails, I went ahead with the hint's suggestion of pwntools. Asked chatgpt some useful functions of pwntools and apparently it can generate a payload given an offset to cover. Went over to the documentation and yes it is possible so got myself a payload which basically worked same as in that pdf (format-string-1). Some bug fixes and the script worked!
+
