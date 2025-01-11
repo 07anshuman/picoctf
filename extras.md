@@ -15,7 +15,11 @@ static int addIntOvf(int result, int a, int b) {
 somehow the addition of two negative numbers should be positive and two positive numbers should be negative. Also the hint suggested integer overflow. I looked up integer overflow and it was essentially the concept of what largest number can int store given its 4 byte size. The number range is `-2,147,483,648 to 2,147,483,647`, beyond this the integers wrap around. So if we enter 2,147,483,648, it would actually be interpreted as -2,147,483,648. That is what I entered and got the flag. If I recall I've seen that video of "breaking pacman" you essentially run out of map, not just in pacman but in some other games, and they handle it by modular arithmetic to have a controlled wrap around.
 
 # format-string-1
+## Flag: picoCTF{4n1m41_57y13_4x4_f14g_50396c64}
 
+Looking at the source it was understandable it is a format string vuln, since there was a print(buf) statement in it. I then proceeded to read the format strings chapter in the pdf which was very insightful and I've added some notes for my reference below. 
+
+I had tried a basic A payload before reading the file, but now based on the hints I first wanted to figure out what type of binary this is, 32b or 64b, looking at the addresses of the stack (the left column below) it seemed a 64 bit file. 
 ```
 0x7ffede176a70: 0x00000001      0x00000000      0xa8280d90      0x00007f3a
 0x7ffede176a80: 0x00000000      0x00000000      0x004011f6      0x00000000
@@ -27,6 +31,8 @@ somehow the addition of two negative numbers should be positive and two positive
 0x7ffede176ae0: 0x00000000      0x00000000      0x00000000      0x00000000
 ```
 
+but then looking at this below suggested a 32 bit file. This got me confused. Why are the stack addresses here in 4 bytes then? Googling led me to understand this is because the address is truncated removing the preceeding zeroes and only showing the 4 bytes even though it is still 8 bytes.
+I confirmed this using the file command too. 
 ```
 00000000004011f6 <main>:
   4011f6:       f3 0f 1e fa             endbr64 
@@ -35,11 +41,11 @@ somehow the addition of two negative numbers should be positive and two positive
   4011fe:       48 81 ec d0 04 00 00    sub    $0x4d0,%rsp
   401205:       be 08 20 40 00          mov    $0x402008,%esi
 ```
+`format-string-1.1: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=62bc37ea6fa41f79dc756cc63ece93d8c5499e89, for GNU/Linux 3.2.0, not stripped`
 
-`python3 -c 'print("A" * 2048)' | nc mimas.picoctf.net 63436`
+Now that I knew this was a 64 bit file and I had to read stack values which include secret file 1 and 2 values too, I then payload a bunch of %lx and it gave me values at those addresses, most were not ASCII representable but some were and those were flag values. Now, from the pdf I know the way these values are stored is in reverse order. So, I need to reverse the endianness back again. I used a simple reverser for this. The 8 byte patterns were still jumbled up so I spent some time arranging them in correct order. This was mostly hit and trial. 
 
-Notes from the pdf given in hint 1:
-
+## Notes from the pdf given in hint 1:
 
 `n the 32 bit printf() machine, each slot is 4 bytes and the first slot is the stack-line pointed by esp immediately before the call that jumps to printf().` 
 
