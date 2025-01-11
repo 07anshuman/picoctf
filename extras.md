@@ -38,8 +38,10 @@ somehow the addition of two negative numbers should be positive and two positive
 
 `python3 -c 'print("A" * 2048)' | nc mimas.picoctf.net 63436`
 
-Reading the pdf `n the 32 bit printf() machine, each slot is 4 bytes and the first slot is the stack-line pointed by esp immediately before the
-call that jumps to printf().` 
+Notes from the pdf given in hint 1:
+
+
+`n the 32 bit printf() machine, each slot is 4 bytes and the first slot is the stack-line pointed by esp immediately before the call that jumps to printf().` 
 
 ```
 Our right-to-left convention in the representation of memory is useful when displaying addresses, but it is annoying when displaying strings, which come out reversed. As a compromise, we sometimes show parts of memory in a “mirrored” fashion, in left-to-right order. We use a dashed pattern for parts of memory displayed in this way and we add “(mirrored)” on top. In Figure 7.1, the part of memory that contains the format string is mirrored.
@@ -60,3 +62,17 @@ Our right-to-left convention in the representation of memory is useful when disp
 `a %.ms instruction, which will always read (and print) at most m bytes`
 
 `“%ms” will always output at least m bytes, while “%.ms” will always output at most m bytes. If you want exactly m bytes, you need both: “%m.ms”.`
+
+```
+3rd Byte (0x22):
+
+    Current counter = 85 (after the previous %hhn).
+    Desired value = 0x22 = 34.
+    Since 34 < 85, wrap around using modulo 256:
+        Increment by 256 - 85 + 34 = 205 using %205c.
+    %hhn writes 0x22 to addr+2.
+```
+`The -Wformat option lets the compiler parse the calls to printf()-like functions to check that the optional arguments match the format specifiers in the format string.`
+`it will abort the process if a format string with random access arguments does not use all the arguments (see Section 7.2.2);
+it will abort the process if a format string containing a “%n” operator is read from writable memory`
+`The checksec utility from the pwntools library detects FORTIFY_SOURCE by looking for any imported function whose name ends in _chk`
