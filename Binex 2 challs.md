@@ -17,7 +17,7 @@ For that we need to find the address of win, which is fairly easy just used objd
 [*]   0x21af2d0  ->   bico
 ```
 using the addresses the offset is of 32 bytes.
-So i need to have a payload of 32A's and then the address. Also the hint mentioned using the correct endianness. And quick search and past challenges I had the idea these addresses are written in reverse. Now, I put that in but it didn't work. I tried the normal endian too but that didn't work either. At this point I was stuck for a while cause the reasoning seemed right. I chatgpt'd some options it suggested using the python3 -c "commands" and I used those but I kept getting some errors. Then it created a script which used the spawn function but still didn't work. Then it created a script using pwntools and after two error fixes it worked!
+So i need to have a payload of 32A's and then the address. Also the hint mentioned using the correct endianness. And quick search and past challenges I had the idea these addresses are written in reverse. Now, I put that in but it didn't work. I tried the normal endian too but that didn't work either. At this point I was stuck for a while cause the reasoning seemed right. I chatgpt'd some options it suggested using the python3 -c "commands" and I used those but I kept getting some errors. Then i asked it to creat a script using pwntools. which finally worked after minute fixes.
 
 ```
 from pwn import *
