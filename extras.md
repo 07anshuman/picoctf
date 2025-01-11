@@ -93,3 +93,8 @@ Now for that we need to know the address of sus for one, so found that using obj
 ## Flag: picoCTF{starting_to_get_the_hang_79ee3270}
 
 So this was fairly straightforward. They had the option to print the stack meaning I could see the offset between the safe_var and input_data. it was 32 bytes. and I had to overflow input_data to safe_var so if I write pico 8 times and then 1 time more it would do the same and it did.
+
+# VNE
+## Flag: picoCTF{Power_t0_man!pul4t3_3nv_1ac0e5a3}
+
+So, listing the hidden files shows a root folder but not directly accessible. Trying a few things and then directory traversal, this command worked: `export SECRET_DIR="../../root"` it listed the contents of root which was flag.txt, now to read flag.txt I just injected the SECRET_DIR with "cat /root/flag.txt" that worked just fine.
